@@ -39,4 +39,18 @@ blogRouter.patch("/blogs/:id", async(req,res)=>{
 })
 
 
+blogRouter.delete("/blogs/:id", async(req,res)=>{
+
+    try {
+        const {userID}= req.body
+        const blog = await blogModel.findOneAndDelete({_id:req.params.id, userID:userID});
+        if(!blog){
+            return res.status(400).send({msg:"Blog not found"});
+        }
+        return res.status(200).send({msg:"Blog has been deleted"});
+    } catch (error) {
+        return res.status(400).send({msg:error.message});
+    }
+})
+
 module.exports= blogRouter
