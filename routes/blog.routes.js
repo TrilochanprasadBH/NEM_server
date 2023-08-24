@@ -15,10 +15,12 @@ blogRouter.get("/blogs", async(req,res)=>{
 
 blogRouter.post("/blogs", async(req,res)=>{
     try {
-        const {username,title,content,category,date,likes,comments}= req.body;
-            const newblog= new blogModel({...req.body})
+        const {userID}= req.body;
+            const newblog= new blogModel({...req.body, userID})
+            await newblog.save();
+            return res.status(200).send({msg:"blog post was added"});
     } catch (error) {
-        
+        return res.status(400).send({msg:error.message});
     }
 })
 

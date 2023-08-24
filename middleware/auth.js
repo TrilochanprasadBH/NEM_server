@@ -9,7 +9,7 @@ const auth = async(req,res,next)=>{
                 req.body.userID = decoded.userID
                return next();
         }else{
-            return res.satus(400).send({msg:"token doesnt  exist, please login"});
+            return res.status(400).send({msg:"token doesnt  exist, please login"});
         }
         
     } catch (error) {
