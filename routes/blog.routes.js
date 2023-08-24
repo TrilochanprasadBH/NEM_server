@@ -7,9 +7,10 @@ blogRouter.use(auth);
 
 blogRouter.get("/blogs", async(req,res)=>{
     try {
-        
+        let allblogs = await blogModel.find();
+        return res.status(200).send(allblogs);
     } catch (error) {
-        
+        return res.status(400).send({msg:"no blogs present"});
     }
 })
 
