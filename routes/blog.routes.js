@@ -25,7 +25,18 @@ blogRouter.post("/blogs", async(req,res)=>{
     }
 })
 
-
+blogRouter.patch("/blogs/:id", async(req,res)=>{
+    try {
+        const {title, content, category, userID} = req.body
+        const blog = await blogModel.findOneAndUpdate({_id:req.params.id, userID:userID},{title,content,category})
+        if(!blog){
+            return res.status(400).send({msg:"No blog found"});
+        }
+        return res.status(200).send({msg:"blog has been updated", blog});
+    } catch (error) {
+        return res.status(400).send({msg:error.message});
+    }
+})
 
 
 module.exports= blogRouter
